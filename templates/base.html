@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{% block title %}Dah Assistant SAI{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Base Template</title>
 </head>
 <body>
-    <div class="container">
+    <header>
+        <h1>Welcome to Dah Assistant AI</h1>
+    </header>
+    <main>
         {% block content %}{% endblock %}
-    </div>
+    </main>
+    <script src="/static/main.js"></script>
 </body>
 </html>
