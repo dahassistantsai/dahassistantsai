@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard - Dah Assistant SAI</title>
-</head>
-<body>
-    <h2>Welcome, {{ user }}!</h2>
-    <p>This is your Dah Assistant SAI Dashboard.</p>
-    <form method="POST" action="{{ url_for('login') }}">
-        <button type="submit">Logout</button>
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Dashboard - Dah Assistant SAI{% endblock %}
+{% block content %}
+<h2>Welcome, {{ user }}!</h2>
+<p>This is your Dah Assistant SAI Dashboard.</p>
+<form method="POST" action="{{ url_for('logout') }}">
+    <button type="submit">Logout</button>
+</form>
+{% endblock %}
