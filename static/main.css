@@ -1,0 +1,104 @@
+/* Modern dark pink/blue theme */
+body {
+    background: #1a1a2e;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: linear-gradient(90deg, #ff0066 30%, #6600ff 100%);
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 8px #000a;
+}
+
+header h1 {
+    color: #fff;
+    margin: 0;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #ff8ce6;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: #7b2ff2;
+}
+
+main {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 32px 24px;
+    background: #23234c;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px #0005;
+}
+
+button,
+input[type="submit"] {
+    background: linear-gradient(90deg, #ff0066 0%, #6600ff 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 8px 0;
+    transition: background 0.2s;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background: linear-gradient(90deg, #6600ff 0%, #ff0066 100%);
+}
+
+input, textarea, select {
+    background: #23234c;
+    color: #f0f0f0;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card {
+    background: #23234c;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px #0008;
+    padding: 18px 24px;
+    margin: 16px 0;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: #26264d;
+}
+::-webkit-scrollbar-thumb {
+    background: #ff0066;
+    border-radius: 5px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    main {
+        padding: 16px 6px;
+    }
+    nav a {
+        display: block;
+        margin: 8px 0;
+    }
+}
