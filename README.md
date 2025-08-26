@@ -1,16 +1,38 @@
-## Hi there 👋
+# Dah Assistant SAI Flask Dashboard
 
-<!--
-**dahassistantsai/dahassistantsai** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## Quick Start
 
-Here are some ideas to get you started:
+1. **Install dependencies**  
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+2. **Run the app**  
+   ```bash
+   python app.py
+   ```
+
+3. **Access the dashboard**  
+   Open [http://localhost:5000](http://localhost:5000) in your browser.
+
+## Default Credentials
+
+- Username: `admin`
+- Password: `password123`
+
+## Deployment
+
+For production, set a secure `app.secret_key`, use a proper WSGI server, and configure environment variables.
+
+## File Structure
+
+```
+app.py
+requirements.txt
+templates/
+    base.html
+    login.html
+    dashboard.html
+.gitignore
+README.md
+```
