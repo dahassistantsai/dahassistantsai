@@ -1,9 +1,69 @@
-<html>
+<!DOCTYPE html>
+<html lang='en'>
 <head>
-    <title>My Frontend Implementation</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Dah Assistant SAI - Self-Contained AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f2f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a73e8;
+        }
+        .input-area {
+            margin: 20px 0;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1557b0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Frontend!</h1>
-    <p>This is the initial implementation of the frontend.</p>
+    <div class='container'>
+        <h1>Dah Assistant SAI</h1>
+        <div class='input-area'>
+            <h2>Enter your request:</h2>
+            <textarea id='userInput' placeholder='Type your message here...'></textarea>
+            <button onclick='sendRequest()'>Send Request</button>
+        </div>
+        <div id='response'>
+            <h2>Response:</h2>
+            <div id='responseContent'></div>
+        </div>
+    </div>
+    <script>
+        function sendRequest() {
+            const input = document.getElementById('userInput').value;
+            const responseDiv = document.getElementById('responseContent');
+            responseDiv.textContent = 'Processing your request...';
+            // Add actual API integration here
+        }
+    </script>
 </body>
 </html>
