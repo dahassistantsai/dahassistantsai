@@ -1,9 +1,113 @@
+<button id="start-macro-btn" style="margin-top:10px;">Start Macro Recording</button>
+<button id="stop-macro-btn" style="margin-top:10px;">Stop Macro Recording</button>
+<button id="play-macro-btn" style="margin-top:10px;">Play Macro</button>
+<script>
+document.getElementById('start-macro-btn').onclick = function() { window.startMacroRecording && window.startMacroRecording(); };
+document.getElementById('stop-macro-btn').onclick = function() { window.stopMacroRecording && window.stopMacroRecording(); };
+document.getElementById('play-macro-btn').onclick = function() { window.playMacro && window.playMacro(); };
+</script>
 {% extends "base.html" %}
 {% block title %}Dashboard - Dah Assistant SAI{% endblock %}
 {% block content %}
 <h2>Welcome, {{ user }}!</h2>
 <p>This is your Dah Assistant SAI Dashboard.</p>
+<button id="agent-mode-btn" style="margin-bottom:10px;">Enable Agent Mode (Screen Interaction)</button>
+<div id="chat-container" class="card">
+    <div id="chat-messages" style="height: 250px; overflow-y: auto; margin-bottom: 10px;"></div>
+    <form id="chat-form" onsubmit="return sendMessage(event)">
+        <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off" required />
+        <button type="button" id="mic-btn" title="Speak"><span role="img" aria-label="mic">🎤</span></button>
+        <button type="submit">Send</button>
+    </form>
+</div>
 <form method="POST" action="{{ url_for('logout') }}">
     <button type="submit">Logout</button>
 </form>
+
+<script>
+// Agent mode button logic
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('agent-mode-btn');
+    if (btn) {
+        btn.onclick = function() {
+            window.enableAgentMode && window.enableAgentMode();
+            alert('Agent mode enabled! Hover and click any element to get its selector.');
+        };
+    }
+});
+const chatMessages = document.getElementById('chat-messages');
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input');
+
+function appendMessage(sender, text) {
+    const msgDiv = document.createElement('div');
+    msgDiv.innerHTML = `<b>${sender}:</b> ${text}`;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Voice input logic
+const micBtn = document.getElementById('mic-btn');
+if (micBtn && window.SpeechRecognition) {
+    const recognition = new window.SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    micBtn.onclick = function(e) {
+        e.preventDefault();
+        recognition.start();
+        micBtn.disabled = true;
+        micBtn.innerText = '🎙️';
+    };
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        chatInput.value = transcript;
+        micBtn.disabled = false;
+        micBtn.innerText = '🎤';
+    };
+    recognition.onerror = function() {
+        micBtn.disabled = false;
+        micBtn.innerText = '🎤';
+    };
+}
+
+async function sendMessage(event) {
+    event.preventDefault();
+    const userMsg = chatInput.value;
+    appendMessage('You', userMsg);
+    chatInput.value = '';
+    try {
+        const res = await fetch('/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ input: userMsg })
+        });
+        const data = await res.json();
+        // Detect agent action protocol
+        if (data.response && data.response.startsWith('ACTION:')) {
+            appendMessage('Assistant', `<span style="color:#ff0066;font-weight:bold;">${data.response}</span>`);
+            // Actually perform the action if possible
+            if (window.performAgentAction) {
+                window.performAgentAction(data.response);
+            }
+        } else {
+            appendMessage('Assistant', data.response);
+        }
+    } catch (err) {
+        appendMessage('Assistant', 'Error: Could not get response.');
+    }
+    return false;
+}
+
+// DOM snapshot button for assistant
+document.getElementById('dom-snapshot-btn').onclick = function() {
+    const dom = document.documentElement.outerHTML;
+    fetch('/dom_snapshot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dom })
+    }).then(r => r.json()).then(data => {
+        appendMessage('System', 'DOM snapshot sent to assistant.');
+    });
+};
 {% endblock %}

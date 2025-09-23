@@ -1,1 +1,4 @@
+torch
+transformers
+flask
 Flask==3.0.0
